@@ -45,7 +45,7 @@ class GridGuy {
         switchArray[i]=true;
       }
     }
-    if(renderQuality) {
+    if(renderHighQuality) {
       strokeLines=false;
     } 
     else {
@@ -124,7 +124,7 @@ class GridGuy {
     }
 
     if(hovered&&!clicked) {
-      if(!renderQuality) {
+      if(!renderHighQuality) {
         fillColor = blendColor(fillColor,hoveredColor,ADD);
       }
     }
@@ -133,7 +133,7 @@ class GridGuy {
     }
 
     // note: points go faster with OpenGL, rects with P2D
-    if(renderQuality) {
+    if(renderHighQuality) {
       drawPoint();
     } 
     else {
