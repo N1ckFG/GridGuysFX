@@ -40,15 +40,14 @@ class GridGuy {
     lifeCountDown = lifeCountDownOrig;
     respawnCountDownOrig = int(random(rc*chaos,rc));
     respawnCountDown = respawnCountDownOrig;
-    for(int i=0;i<rulesArray.length;i++) {
-      if(applyRule==rulesArray[i]) {
+    for (int i=0;i<rulesArray.length;i++) {
+      if (applyRule==rulesArray[i]) {
         switchArray[i]=true;
       }
     }
-    if(renderHighQuality) {
+    if (renderHighQuality) {
       strokeLines=false;
-    } 
-    else {
+    } else {
       strokeLines=true;
     }
   }
@@ -59,42 +58,37 @@ class GridGuy {
   }
 
   void behaviors() {
-    if(hitDetect(mouseX,mouseY,0,0,posX,posY,guyWidth,guyHeight)) {
+    if (hitDetect(mouseX,mouseY,0,0,posX,posY,guyWidth,guyHeight)) {
       hovered = true;
-    } 
-    else {
+    } else {
       hovered = false;
     }
 
-    if(hovered&&mousePressed) {
+    if (hovered&&mousePressed) {
       mainFire();
-    } 
-    else {
+    } else {
       //clicked = false;
     }
-    if(kaboom) {
-      if(delayCountDown>0) {
+    if (kaboom) {
+      if (delayCountDown>0) {
         delayCountDown--;
-      }
-      else {
+      } else {
         kaboom=false;
         clicked=true;
         delayCountDown=delayCountDownOrig;
       }
     }
-    if(clicked) {
-      if(lifeCountDown>0) {
+    if (clicked) {
+      if (lifeCountDown>0) {
         lifeCountDown--;
-      }
-      else {
+      } else {
         clicked=false;
       }
     }
 
-    if(lifeCountDown==0&&respawnCountDown>0) {
+    if (lifeCountDown==0&&respawnCountDown>0) {
       respawnCountDown--;
-    } 
-    else if(respawnCountDown==0) {
+    } else if (respawnCountDown==0) {
       lifeCountDown=lifeCountDownOrig;
       respawnCountDown=respawnCountDownOrig;
     }
@@ -112,31 +106,29 @@ class GridGuy {
     fillColor = fillColorOrig;
     noStroke();
 
-    if(debugColors) {
-      for(int i=0;i<switchArray.length;i++) {
-        if(switchArray[i]) {
+    if (debugColors) {
+      for (int i=0;i<switchArray.length;i++) {
+        if (switchArray[i]) {
           fillColor = fillColorArray[i];
         }
       }
     }
-    if(strokeLines) {
+    if (strokeLines) {
       stroke(strokeColor);
     }
 
-    if(hovered&&!clicked) {
-      if(!renderHighQuality) {
+    if (hovered&&!clicked) {
+      if (!renderHighQuality) {
         fillColor = blendColor(fillColor,hoveredColor,ADD);
       }
-    }
-    else if(clicked) {
+    } else if (clicked) {
       fillColor = blendColor(fillColor,clickedColor,ADD);
     }
 
     // note: points go faster with OpenGL, rects with P2D
-    if(renderHighQuality) {
+    if (renderHighQuality) {
       drawPoint();
-    } 
-    else {
+    } else {
       drawRect();
     }
   }
@@ -159,12 +151,10 @@ class GridGuy {
     h1 /= 2;
     w2 /= 2;
     h2 /= 2;
-    if(x1 + w1 >= x2 - w2 && x1 - w1 <= x2 + w2 && y1 + h1 >= y2 - h2 && y1 - h1 <= y2 + h2) {
+    if (x1 + w1 >= x2 - w2 && x1 - w1 <= x2 + w2 && y1 + h1 >= y2 - h2 && y1 - h1 <= y2 + h2) {
       return true;
-    } 
-    else {
+    } else {
       return false;
     }
   }
 }
-

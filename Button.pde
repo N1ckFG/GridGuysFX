@@ -32,23 +32,19 @@ class Button {
       if (!mousePressed) {
         hovered=true;
         clicked=false;
-      } 
-      else if (mousePressed) {
+      } else if (mousePressed) {
         hovered=true;
         clicked=true;
       }
     /*
-    } 
-    else if (hitDetect(x[1], y[1], kSize, kSize, posX, posY, sizeXY, sizeXY)||hitDetect(x[4], y[4], kSize, kSize, posX, posY, sizeXY, sizeXY)) {
+    } else if (hitDetect(x[1], y[1], kSize, kSize, posX, posY, sizeXY, sizeXY)||hitDetect(x[4], y[4], kSize, kSize, posX, posY, sizeXY, sizeXY)) {
       hovered=true;
       clicked=false;
-    } 
-    else if (hitDetect(x[0], y[0], kSize, kSize, posX, posY, sizeXY, sizeXY)&&hitDetect(x[4], y[4], kSize, kSize, posX, posY, sizeXY, sizeXY)) {
+    } else if (hitDetect(x[0], y[0], kSize, kSize, posX, posY, sizeXY, sizeXY)&&hitDetect(x[4], y[4], kSize, kSize, posX, posY, sizeXY, sizeXY)) {
       hovered=true;
       clicked=true;
     */
-    } 
-    else {
+    } else {
       hovered=false;
       clicked=false;
     }
@@ -83,10 +79,8 @@ class Button {
     h2 /= 2; 
     if (x1 + w1 >= x2 - w2 && x1 - w1 <= x2 + w2 && y1 + h1 >= y2 - h2 && y1 - h1 <= y2 + h2) {
       return true;
-    } 
-    else {
+    } else {
       return false;
     }
   }
 }
-

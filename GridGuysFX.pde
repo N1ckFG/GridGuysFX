@@ -28,11 +28,10 @@ String setRules="";
 float odds_X_Yplus1, odds_Xminus1_Y, odds_X_Yminus1, odds_Xplus1_Y, odds_Xplus1_Yplus1, odds_Xminus1_YminuX1, odds_Xplus1_Yminus1, odds_Xminus1_Yplus1;
 
 void initGlobals() {
-  if(renderHighQuality) {
+  if (renderHighQuality) {
     numColumns = sW;
     numRows = sH;
-  } 
-  else {
+  } else {
     numColumns = sW/lowQualityReduceBy;
     numRows = sH/lowQualityReduceBy;
   }
@@ -44,23 +43,23 @@ void initGlobals() {
 }
 
 void setup() {
+  size(50, 50, P2D);
   fillBoxSetup();
   initGlobals();
-  if(renderHighQuality) {
-    size(sW,sH,P2D); // try an alternate renderer
-  } 
-  else {
-    size(sW,sH,P2D);
-  }
+  
+  surface.setSize(sW,sH);
+
   //noCursor();
   frameRate(fps);
-  for(int y = 0; y<numRows; y++) {
-    for(int x=0; x<numColumns; x++) {
+  
+  for (int y = 0; y<numRows; y++) {
+    for (int x=0; x<numColumns; x++) {
       rulesInit(x,y);
       guysInit(x,y);
     }
   }
-  for(int i=0;i<mapImg.length;i++){
+  
+  for (int i=0;i<mapImg.length;i++) {
     mapImg[i] = loadImage("cellosback_"+(i+1)+".png");
     scaleImg[i] = createImage(numColumns,numRows,RGB);
   }
@@ -68,34 +67,37 @@ void setup() {
 }
 
 void draw() {
-  if(firstRun){
+  if (firstRun) {
     fillBoxDraw();
-  }else{
-  image(mapImg[currentFrame],0,0,numColumns,numRows);
-  scaleImg[currentFrame] = get(0,0,numColumns,numRows);
-  //image(scaleImg,0,0,width,height);
-  for(int y = 0; y<numRows; y++) {
-    for(int x=0; x<numColumns; x++) {
-      int loc = x + (y*numColumns);
-      if(scaleImg[currentFrame].pixels[loc]!=color(0)) {
-        bob[x][y].mainFire();
+  } else {
+    image(mapImg[currentFrame],0,0,numColumns,numRows);
+    scaleImg[currentFrame] = get(0,0,numColumns,numRows);
+    //image(scaleImg,0,0,width,height);
+    
+    for (int y = 0; y<numRows; y++) {
+      for (int x=0; x<numColumns; x++) {
+        int loc = x + (y*numColumns);
+        if (scaleImg[currentFrame].pixels[loc]!=color(0)) {
+          bob[x][y].mainFire();
+        }
+        rulesHandler(x,y);
+        bob[x][y].update();
       }
-      rulesHandler(x,y);
-      bob[x][y].update();
     }
-  }
-  if(currentFrame<numFrames-1){
-  currentFrame++;
-  }
-  if(renderHighQuality){
-  if(renderCounter<renderCounterMax){
-    saveFrame("render/render####.png");
-    println("rendered frame: " + (renderCounter+1) + " / " + renderCounterMax);
-    renderCounter++;
-  }else{
-  exit();
-  }
-  }
+    
+    if (currentFrame<numFrames-1) {
+      currentFrame++;
+    }
+    
+    if (renderHighQuality) {
+      if (renderCounter<renderCounterMax) {
+        saveFrame("render/render####.png");
+        println("rendered frame: " + (renderCounter+1) + " / " + renderCounterMax);
+        renderCounter++;
+      } else {
+        exit();
+      }
+    }
   }
 }
 
@@ -104,24 +106,16 @@ void keyPressed() {
 }
 
 void rulesHandler(int x, int y) {
-  if(bob[x][y].switchArray[0]) {  // NWcorner
-  } 
-  else if(bob[x][y].switchArray[1]) {  // NEcorner
-  } 
-  else if(bob[x][y].switchArray[2]) {  // SWcorner
-  } 
-  else if(bob[x][y].switchArray[3]) {   // SEcorner
-  } 
-  else if(bob[x][y].switchArray[4]) {  //Nrow
-  } 
-  else if(bob[x][y].switchArray[5]) {  //Srow
-  } 
-  else if(bob[x][y].switchArray[6]) {  //Wrow
-  } 
-  else if(bob[x][y].switchArray[7]) {  //Erow
-  } 
-  else { // everything else
-    if(bob[x][y].clicked) {
+  if (bob[x][y].switchArray[0]) {  // NWcorner
+  } else if (bob[x][y].switchArray[1]) {  // NEcorner
+  } else if (bob[x][y].switchArray[2]) {  // SWcorner
+  } else if (bob[x][y].switchArray[3]) {   // SEcorner
+  } else if (bob[x][y].switchArray[4]) {  //Nrow
+  } else if (bob[x][y].switchArray[5]) {  //Srow
+  } else if (bob[x][y].switchArray[6]) {  //Wrow
+  } else if (bob[x][y].switchArray[7]) {  //Erow
+  } else { // everything else
+    if (bob[x][y].clicked) {
       //these are direction probabilities
       bob[x][y+1].kaboom = diceHandler(1, odds_X_Yplus1);
       bob[x-1][y].kaboom = diceHandler(1, odds_Xminus1_Y);
@@ -138,48 +132,39 @@ void rulesHandler(int x, int y) {
 boolean diceHandler(float v1, float v2) {
   float rollDice;
   rollDice = random(v1);
-  if(rollDice<v2) {
+  if (rollDice<v2) {
     return true;
-  }
-  else {
+  } else {
     return false;
   }
 }
 
 void rulesInit(int x, int y) {
   setRules = "";
-  if(x==0&&y==0) {
+  if (x==0&&y==0) {
     setRules="NWcorner";
-  } 
-  else if(x==numColumns-1&&y==0) {
+  } else if (x==numColumns-1&&y==0) {
     setRules="NEcorner";
-  } 
-  else if(x==0&&y==numRows-1) {
+  } else if (x==0&&y==numRows-1) {
     setRules="SWcorner";
-  } 
-  else if(x==numColumns-1&&y==numRows-1) {
+  } else if (x==numColumns-1&&y==numRows-1) {
     setRules="SEcorner";
-  } 
-  else if(y==0) {
+  } else if (y==0) {
     setRules="Nrow";
-  } 
-  else if(y==numRows-1) {
+  } else if (y==numRows-1) {
     setRules="Srow";
-  } 
-  else if(x==0) {
+  } else if (x==0) {
     setRules="Wrow";
-  } 
-  else if(x==numColumns-1) {
+  } else if (x==numColumns-1) {
     setRules="Erow";
   }
 }
 
 void guysInit(int x, int y) {
   bob[x][y] = new GridGuy(startX,startY,guyWidth,guyHeight,setRules,globalChaos,delayCounter,lifeCounter,respawnCounter);
-  if(startX<width-guyWidth) {
+  if (startX<width-guyWidth) {
     startX += guyWidth;
-  } 
-  else {
+  } else {
     startX = guyWidth/2;
     startY += guyHeight;
   }
@@ -189,8 +174,8 @@ void resetAll() {
   startX = 0;
   startY = 0;
   currentFrame=0;
-  for(int y = 0; y<numRows; y++) {
-    for(int x=0; x<numColumns; x++) {
+  for (int y = 0; y<numRows; y++) {
+    for (int x=0; x<numColumns; x++) {
       bob[x][y].hovered = false;
       bob[x][y].clicked = false;
       bob[x][y].kaboom = false;
@@ -204,4 +189,3 @@ void resetAll() {
 
 
 //--  END
-

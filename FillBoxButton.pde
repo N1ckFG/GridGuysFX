@@ -39,23 +39,19 @@ class FillBoxButton {
       if (!mousePressed) {
         hovered=true;
         clicked=false;
-      } 
-      else if (mousePressed) {
+      } else if (mousePressed) {
         hovered=true;
         clicked=true;
       }
       /*
-    } 
-       else if (hitDetect(x[1], y[1], kSize, kSize, posX, posY, sizeXY, sizeXY)||hitDetect(x[4], y[4], kSize, kSize, posX, posY, sizeXY, sizeXY)) {
+    } else if (hitDetect(x[1], y[1], kSize, kSize, posX, posY, sizeXY, sizeXY)||hitDetect(x[4], y[4], kSize, kSize, posX, posY, sizeXY, sizeXY)) {
        hovered=true;
        clicked=false;
-       } 
-       else if (hitDetect(x[0], y[0], kSize, kSize, posX, posY, sizeXY, sizeXY)&&hitDetect(x[4], y[4], kSize, kSize, posX, posY, sizeXY, sizeXY)) {
+       } else if (hitDetect(x[0], y[0], kSize, kSize, posX, posY, sizeXY, sizeXY)&&hitDetect(x[4], y[4], kSize, kSize, posX, posY, sizeXY, sizeXY)) {
        hovered=true;
        clicked=true;
        */
-    } 
-    else {
+    } else {
       hovered=false;
       clicked=false;
     }
@@ -71,10 +67,10 @@ class FillBoxButton {
       gaugeNowColor=gaugeMaxColor;
         internalRandomValue=1;
         maxmin=true;
-      }else if(maxmin && internalRandomValue==1){
+      }else if (maxmin && internalRandomValue==1) {
       gaugeNowColor=gaugeMinColor;
       internalRandomValue=0;
-      }else if(maxmin && internalRandomValue==0){
+      }else if (maxmin && internalRandomValue==0) {
       gaugeNowColor=gaugeFreeColor;
       maxmin=false;
       }
@@ -85,7 +81,7 @@ class FillBoxButton {
   void drawButton() {
     rectMode(CENTER);
     noStroke();
-    if(!maxmin){
+    if (!maxmin) {
     if (hovered&&!clicked) {
       nowColor = hoverColor;
     }
@@ -95,7 +91,7 @@ class FillBoxButton {
     else if (!hovered&&!clicked) {
       nowColor = offColor;
     }
-    }else{
+    } else {
     nowColor=gaugeNowColor;
     }
     fill(0, 10);
@@ -119,8 +115,7 @@ class FillBoxButton {
     h2 /= 2; 
     if (x1 + w1 >= x2 - w2 && x1 - w1 <= x2 + w2 && y1 + h1 >= y2 - h2 && y1 - h1 <= y2 + h2) {
       return true;
-    } 
-    else {
+    } else {
       return false;
     }
   }
@@ -133,4 +128,3 @@ class FillBoxButton {
     return f2;
   }
 }
-
