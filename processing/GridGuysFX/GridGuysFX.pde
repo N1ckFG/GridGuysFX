@@ -54,11 +54,7 @@ void rulesHandler(int x, int y) {
 
 boolean diceHandler(float v1, float v2) { 
   float rollDice = random(v1);
-  if (rollDice < v2) {
-    return true;
-  } else {
-    return false;
-  }
+  return rollDice < v2;
 }
 
 void rulesInit(int x, int y) {
@@ -101,7 +97,7 @@ void resetAll() {
     for (int x = 0; x < numColumns; x++) {
       mainGrid[x][y].hovered = false;
       mainGrid[x][y].clicked = false;
-      mainGrid[x][y].kaboom = false;
+      //mainGrid[x][y].kaboom = false;
       mainGrid[x][y].delayCountDown = mainGrid[x][y].delayCountDownOrig;
       mainGrid[x][y].lifeCountDown = mainGrid[x][y].lifeCountDownOrig;
       mainGrid[x][y].respawnCountDown = mainGrid[x][y].respawnCountDownOrig;
