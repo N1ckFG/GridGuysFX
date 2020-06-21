@@ -1,6 +1,6 @@
 class GridGuy {
 
-  String[] rulesArray = { "NWcorner", "NEcorner", "SWcorner", "SEcorner", "Nrow", "Srow", "Wrow", "Erow" };;
+  String[] rulesArray = { "NWcorner", "NEcorner", "SWcorner", "SEcorner", "Nrow", "Srow", "Wrow", "Erow" };
   boolean[] switchArray = { false, false, false, false, false, false, false, false };
   color[] fillColorArray = {      
     color(255, 0, 0), color(0, 255, 0), color(0, 0, 255), color(255, 0, 255), color(50), color(60), color(70), color(80)

@@ -14,8 +14,7 @@ int pixelSize = 4;
 int sW = 640;
 int sH = 480;
 int fps = 60;
-//int currentFrame = 0;
-//int renderCounter = 0;
+
 int numColumns, numRows;
 float guyWidth, guyHeight, startX, startY;
 GridGuy[][] mainGrid;
