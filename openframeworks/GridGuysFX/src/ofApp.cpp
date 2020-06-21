@@ -15,12 +15,21 @@ void ofApp::initGlobals() {
     startY = guyHeight / 2;
 
     // make mainGrid a 2D array
-    mainGrid = new GridGuy[numColumns][numRows];
+    // make mainGrid a 2D array
+    for (int i = 0; i < numColumns; i++) {
+        vector<GridGuy> mg;
+        for (int j = 0; j < numRows; j++) {
+            GridGuy g = GridGuy(startX, startY, guyWidth, guyHeight, setRules, globalChaos, delayCounter, lifeCounter, respawnCounter);
+            mg.push_back(g);
+        }
+        mainGrid.push_back(mg);
+    }
 }
 
 void ofApp::rulesHandler(int x, int y) {
-    bool[] sw = mainGrid[x][y].switchArray;
-    if (sw[0] || sw[1] || sw[2] || sw[3] || sw[4] || sw[5] || sw[6] || sw[7]) return;
+    for (int i=0; i<sizeof(mainGrid[x][y].switchArray); i++) {
+        if (mainGrid[x][y].switchArray[i]) return;
+    }
 
     if (mainGrid[x][y].clicked) {
         //these are direction probabilities
@@ -66,7 +75,7 @@ void ofApp::rulesInit(int x, int y) {
 }
 
 void ofApp::guysInit(int x, int y) {
-    mainGrid[x][y] = new GridGuy(startX, startY, guyWidth, guyHeight, setRules, globalChaos, delayCounter, lifeCounter, respawnCounter);
+    mainGrid[x][y] = GridGuy(startX, startY, guyWidth, guyHeight, setRules, globalChaos, delayCounter, lifeCounter, respawnCounter);
     if (startX < ofGetWidth() - guyWidth) {
         startX += guyWidth;
     } else {
@@ -99,7 +108,7 @@ void ofApp::resetAll() {
 
 void ofApp::pixelOddsSetup() {
     // temp
-    for (int i = 0; i < randomValues.length; i++) {
+    for (int i = 0; i < sizeof(randomValues); i++) {
         randomValues[i] = ofRandom(1);
     }
 

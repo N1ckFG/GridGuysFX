@@ -38,9 +38,9 @@ class ofApp : public ofBaseApp {
 
         int numColumns, numRows;
         float guyWidth, guyHeight, startX, startY;
-        GridGuy[][] mainGrid;
+        vector<vector<GridGuy>> mainGrid;
         string setRules = "";
         float odds_X_Yplus1, odds_Xminus1_Y, odds_X_Yminus1, odds_Xplus1_Y, odds_Xplus1_Yplus1, odds_Xminus1_YminuX1, odds_Xplus1_Yminus1, odds_Xminus1_Yplus1;
-        float[] randomValues = new float[8];
+        float randomValues[8];
     
 };

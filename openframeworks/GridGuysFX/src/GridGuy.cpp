@@ -1,6 +1,6 @@
 #include "GridGuy.h"
     
-GridGuy::GridGuy(float x, float y, float w, float h, String s, float cc, int dc, int lc, int rc) {
+GridGuy::GridGuy(float x, float y, float w, float h, string s, float cc, int dc, int lc, int rc) {
     birthTime = ofGetElapsedTimeMillis();
     alpha = 255;
     
@@ -31,7 +31,7 @@ GridGuy::GridGuy(float x, float y, float w, float h, String s, float cc, int dc,
     respawnCountDownOrig = int(ofRandom(rc * chaos, rc));
     respawnCountDown = respawnCountDownOrig;
     
-    for (int i = 0; i < rulesArray.length; i++) {
+    for (int i = 0; i < sizeof(rulesArray); i++) {
         if (applyRule == rulesArray[i]) {
             switchArray[i] = true;
         }
@@ -99,7 +99,7 @@ void GridGuy::draw() {
     noStroke();
 
     if (debugColors) {
-        for (int i = 0; i < switchArray.length; i++) {
+        for (int i = 0; i < sizeof(switchArray); i++) {
             if (switchArray[i]) {
                 fillColor = fillColorArray[i];
             }
