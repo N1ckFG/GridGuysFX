@@ -31,7 +31,7 @@ GridGuy::GridGuy(float x, float y, float w, float h, string s, float cc, int dc,
     respawnCountDownOrig = int(ofRandom(rc * chaos, rc));
     respawnCountDown = respawnCountDownOrig;
     
-    for (int i = 0; i < sizeof(rulesArray); i++) {
+    for (int i = 0; i < rulesArray.size(); i++) {
         if (applyRule == rulesArray[i]) {
             switchArray[i] = true;
         }
@@ -96,10 +96,10 @@ void GridGuy::mainFire() {
 
 void GridGuy::draw() {
     fillColor = fillColorOrig;
-    noStroke();
+    //noStroke();
 
     if (debugColors) {
-        for (int i = 0; i < sizeof(switchArray); i++) {
+        for (int i = 0; i < switchArray.size(); i++) {
             if (switchArray[i]) {
                 fillColor = fillColorArray[i];
             }
@@ -107,7 +107,7 @@ void GridGuy::draw() {
     }
 
     if (strokeLines) {
-        stroke(strokeColor);
+        ofSetColor(strokeColor);
     }
 
     if (hovered && !clicked) {
@@ -121,25 +121,23 @@ void GridGuy::draw() {
 
 void GridGuy::drawPoint() {
     int alpha = 255 - (ofGetElapsedTimeMillis() - birthTime);
-    stroke(fillColor, alpha);
-    strokeWeight(guyWidth);
-    point(posX, posY);
+    ofSetColor(fillColor, alpha);
+    //strokeWeight(guyWidth);
+    ofPoint(posX, posY);
 }
 
 void GridGuy::drawEllipse() {
-    fill(fillColor);
-    ellipseMode(CENTER);
-    ellipse(posX, posY, guyWidth, guyHeight);
+    ofSetColor(fillColor);
+    ofDrawEllipse(posX, posY, guyWidth, guyHeight);
 }
 
 void GridGuy::drawRect() {
-    fill(fillColor);
-    rectMode(CENTER);
-    rect(posX, posY, guyWidth, guyHeight);
+    ofSetColor(fillColor);
+    ofDrawRectangle(posX, posY, guyWidth, guyHeight);
 }
 
 ofColor GridGuy::highlight(ofColor c1, ofColor c2) {
-    return ofColor(red(c1) + red(c2), green(c1) + green(c2), blue(c1) + blue(c2));
+    return ofColor(c1.r + c2.r, c1.g + c2.g, c1.b + c2.b);
 }
 
 bool GridGuy::hitDetect(float x1, float y1, float w1, float h1, float x2, float y2, float w2, float h2) { // float x1, float y1, float w1, float h1, float x2, float y2, float w2, float h2

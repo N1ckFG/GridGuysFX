@@ -27,7 +27,7 @@ void ofApp::initGlobals() {
 }
 
 void ofApp::rulesHandler(int x, int y) {
-    for (int i=0; i<sizeof(mainGrid[x][y].switchArray); i++) {
+    for (int i=0; i<mainGrid[x][y].switchArray.size(); i++) {
         if (mainGrid[x][y].switchArray[i]) return;
     }
 
@@ -108,7 +108,7 @@ void ofApp::resetAll() {
 
 void ofApp::pixelOddsSetup() {
     // temp
-    for (int i = 0; i < sizeof(randomValues); i++) {
+    for (int i = 0; i < randomValues.size(); i++) {
         randomValues[i] = ofRandom(1);
     }
 

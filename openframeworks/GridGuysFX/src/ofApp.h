@@ -41,6 +41,6 @@ class ofApp : public ofBaseApp {
         vector<vector<GridGuy>> mainGrid;
         string setRules = "";
         float odds_X_Yplus1, odds_Xminus1_Y, odds_X_Yminus1, odds_Xplus1_Y, odds_Xplus1_Yplus1, odds_Xminus1_YminuX1, odds_Xplus1_Yminus1, odds_Xminus1_Yplus1;
-        float randomValues[8];
+        vector<float> randomValues = { 0, 0, 0, 0, 0, 0, 0, 0 };
     
 };

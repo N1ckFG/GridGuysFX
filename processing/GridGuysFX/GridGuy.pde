@@ -49,7 +49,7 @@ class GridGuy {
       }
     }
 
-    strokeLines = true;
+    //strokeLines = true;
   }
 
   void run() {
