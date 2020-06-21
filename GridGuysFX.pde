@@ -1,5 +1,5 @@
 //---     MAIN CONTROLS     ---
-boolean firstRun = true;
+boolean firstRun = false;
 
 //if you want to avoid chain reactions, try 0, 20, 100, 0.2
 int delayCounter = 0;    // delays start of spread
@@ -7,6 +7,8 @@ int lifeCounter = 20;    // how long spread lasts
 int respawnCounter = 50; // how long until retrigger
 float globalChaos = 0.3;    // 0 = min, 1 = max
 //-------------------------
+int choose = 0;
+int maxChoices = 7;
 int numFrames = 50;
 int renderCounterMax = 1000;
 //----
@@ -137,58 +139,95 @@ float centerPointX = sW / 2;
 float centerPointY = sH / 2;
 boolean doubleClickedGlobal = false;
 
-int numFillBoxButtons = 8;
-FillBoxButton[] fillBoxButtons = new FillBoxButton[numFillBoxButtons];
-Button goButton; 
-float[] randomValues = new float[numFillBoxButtons];
+float[] randomValues = new float[8];
 
 void fillBoxSetup() {
-    goButton = new Button(sW/2, sH/2, buttonSize * 0.75, color(0, 200, 0), 16, "GO");
-    
-    for (int i = 0; i < fillBoxButtons.length; i++) {
-        randomValues[i] = 0;
-        fillBoxButtons[i] = new FillBoxButton(0, 0, buttonSize, color(200, 100, 0), 18, "0.0");
+    // temp
+    for (int i = 0; i < randomValues.length; i++) {
+      randomValues[i] = random(1);
     }
 
-    fillBoxButtons[0].posX = (sW / 2) - buttonSize;
-    fillBoxButtons[0].posY = (sH / 2) - buttonSize;
-    fillBoxButtons[1].posX = (sW / 2);
-    fillBoxButtons[1].posY = (sH / 2) - buttonSize;
-    fillBoxButtons[2].posX = (sW / 2) + buttonSize;
-    fillBoxButtons[2].posY = (sH / 2) - buttonSize;
-    fillBoxButtons[3].posX = (sW / 2) - buttonSize;
-    fillBoxButtons[3].posY = (sH / 2);
-    fillBoxButtons[4].posX = (sW / 2) + buttonSize;
-    fillBoxButtons[4].posY = (sH / 2);
-    fillBoxButtons[5].posX = (sW / 2) - buttonSize;
-    fillBoxButtons[5].posY = (sH / 2) + buttonSize;
-    fillBoxButtons[6].posX = (sW / 2);
-    fillBoxButtons[6].posY = (sH / 2) + buttonSize;
-    fillBoxButtons[7].posX = (sW / 2) + buttonSize;
-    fillBoxButtons[7].posY = (sH / 2) + buttonSize;
-}
-
-void fillBoxDraw() {
-    goButton.run();
+    choose = int(random(maxChoices));
+    println("choose: " + choose);
     
-    if (goButton.clicked) {
-        firstRun = false;
+    if (choose == 0) { 
+      // 0. CROSS | OK
+      //delayCounter = 4;
+        odds_Xminus1_YminuX1 = 0;//randomValues[0]; // x-1 y-1
+        odds_X_Yminus1 = 0.5;//randomValues[1]; // x y-1
+        odds_Xplus1_Yminus1 = 0;//randomValues[2]; // x+1 y-1
+        odds_Xminus1_Y = 0.5;//randomValues[3]; // x-1 y
+        odds_Xplus1_Y = 0.5;//randomValues[4]; // x+1 y
+        odds_Xminus1_Yplus1 = 0;//randomValues[5]; // x-1 y+1
+        odds_X_Yplus1 = 0.5;//randomValues[6]; // x y+1
+        odds_Xplus1_Yplus1 = 0;//randomValues[7]; // x+1 y+1      
+    } else if (choose == 1) { 
+      // 1. WOT | ?
+      //delayCounter = 4;
+        odds_Xminus1_YminuX1 = randomValues[0]; // x-1 y-1
+        odds_X_Yminus1 = 1;//randomValues[1]; // x y-1
+        odds_Xplus1_Yminus1 = 1;//randomValues[2]; // x+1 y-1
+        odds_Xminus1_Y = randomValues[3]; // x-1 y
+        odds_Xplus1_Y = 0;//randomValues[4]; // x+1 y
+        odds_Xminus1_Yplus1 = 1;//randomValues[5]; // x-1 y+1
+        odds_X_Yplus1 = 0;//randomValues[6]; // x y+1
+        odds_Xplus1_Yplus1 = randomValues[7]; // x+1 y+1
+    } else if (choose == 1) { 
+      // 2. OCEAN | OK
+      //delayCounter = 4;
+        odds_Xminus1_YminuX1 = 0;//randomValues[0]; // x-1 y-1
+        odds_X_Yminus1 = 0;//randomValues[1]; // x y-1
+        odds_Xplus1_Yminus1 = 0.1 * randomValues[2]; // x+1 y-1
+        odds_Xminus1_Y = randomValues[3]; // x-1 y
+        odds_Xplus1_Y = randomValues[4]; // x+1 y
+        odds_Xminus1_Yplus1 = 0.1 * randomValues[5]; // x-1 y+1
+        odds_X_Yplus1 = 0;//randomValues[6]; // x y+1
+        odds_Xplus1_Yplus1 = 0;//randomValues[7]; // x+1 y+1        
+    } else if (choose == 2) { 
+      // 3. MOUNTAINS
+      //delayCounter = 4;
+        odds_Xminus1_YminuX1 = 0;//randomValues[0]; // x-1 y-1
+        odds_X_Yminus1 = 0.1;//randomValues[1]; // x y-1
+        odds_Xplus1_Yminus1 = 0;//randomValues[2]; // x+1 y-1
+        odds_Xminus1_Y = 0;//randomValues[3]; // x-1 y
+        odds_Xplus1_Y = 0;//randomValues[4]; // x+1 y
+        odds_Xminus1_Yplus1 = randomValues[5]; // x-1 y+1
+        odds_X_Yplus1 = 0.5;//randomValues[6]; // x y+1
+        odds_Xplus1_Yplus1 = randomValues[7]; // x+1 y+1  
+    } else if (choose == 3) { 
+      // 4. DROPS
+      //delayCounter = 4;
+        odds_Xminus1_YminuX1 = 0;//randomValues[0]; // x-1 y-1
+        odds_X_Yminus1 = 0;//randomValues[1]; // x y-1
+        odds_Xplus1_Yminus1 = 0;//randomValues[2]; // x+1 y-1
+        odds_Xminus1_Y = 0;//randomValues[3]; // x-1 y
+        odds_Xplus1_Y = 0;//randomValues[4]; // x+1 y
+        odds_Xminus1_Yplus1 = 0.1 * randomValues[5]; // x-1 y+1
+        odds_X_Yplus1 = 1;//randomValues[6]; // x y+1
+        odds_Xplus1_Yplus1 = 0.1 * randomValues[7]; // x+1 y+1  
+    } else if (choose == 4) { 
+      // 5. DROPS_REVERSE
+      //delayCounter = 4;
+        odds_Xminus1_YminuX1 = 0.1 * randomValues[0]; // x-1 y-1
+        odds_X_Yminus1 = 1;//randomValues[1]; // x y-1
+        odds_Xplus1_Yminus1 = 0.1 * randomValues[2]; // x+1 y-1
+        odds_Xminus1_Y = 0;//randomValues[3]; // x-1 y
+        odds_Xplus1_Y = 0;//randomValues[4]; // x+1 y
+        odds_Xminus1_Yplus1 = 0; //randomValues[5]; // x-1 y+1
+        odds_X_Yplus1 = 0;//randomValues[6]; // x y+1
+        odds_Xplus1_Yplus1 = 0; //randomValues[7]; // x+1 y+1  
+    } else {
+      // 6. ALL RANDOM
+      //delayCounter = 4;
+        odds_Xminus1_YminuX1 = randomValues[0]; // x-1 y-1
+        odds_X_Yminus1 = randomValues[1]; // x y-1
+        odds_Xplus1_Yminus1 = randomValues[2]; // x+1 y-1
+        odds_Xminus1_Y = randomValues[3]; // x-1 y
+        odds_Xplus1_Y = randomValues[4]; // x+1 y
+        odds_Xminus1_Yplus1 = randomValues[5]; // x-1 y+1
+        odds_X_Yplus1 = randomValues[6]; // x y+1
+        odds_Xplus1_Yplus1 = randomValues[7]; // x+1 y+1
     }
-    
-    for (int i = 0; i < numFillBoxButtons; i++) {
-        fillBoxButtons[i].run();
-        randomValues[i] = fillBoxButtons[i].internalRandomValue;
-        println(fillBoxButtons[i].internalRandomValue);
-    }
-
-    odds_Xminus1_YminuX1 = randomValues[0]; // x-1 y-1
-    odds_X_Yminus1 = randomValues[1]; // x y-1
-    odds_Xplus1_Yminus1 = randomValues[2]; // x+1 y-1
-    odds_Xminus1_Y = randomValues[3]; // x-1 y
-    odds_Xplus1_Y = randomValues[4]; // x+1 y
-    odds_Xminus1_Yplus1 = randomValues[5]; // x-1 y+1
-    odds_X_Yplus1 = randomValues[6]; // x y+1
-    odds_Xplus1_Yplus1 = randomValues[7]; // x+1 y+1
 }
 
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
@@ -210,8 +249,8 @@ void setup() {
 
 void draw() {
     background(0);
-    if (firstRun){
-        fillBoxDraw();
+    if (firstRun) {
+        //
     } else {
         for (int y = 0; y < numRows; y++) {
             for (int x = 0; x < numColumns; x++) {
