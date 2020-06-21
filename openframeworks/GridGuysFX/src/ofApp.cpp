@@ -15,7 +15,6 @@ void ofApp::initGlobals() {
     startY = guyHeight / 2;
 
     // make mainGrid a 2D array
-    // make mainGrid a 2D array
     for (int i = 0; i < numColumns; i++) {
         vector<GridGuy> mg;
         for (int j = 0; j < numRows; j++) {
@@ -82,7 +81,7 @@ void ofApp::guysInit(int x, int y) {
         startX = guyWidth / 2;
         startY += guyHeight;
     }
-    cout << "init " << x << " " << y;
+    cout << "init " << x << " " << y << endl;
 }
 
 void ofApp::resetAll() {
@@ -93,7 +92,7 @@ void ofApp::resetAll() {
         for (int x = 0; x < numColumns; x++) {
             mainGrid[x][y].hovered = false;
             mainGrid[x][y].clicked = false;
-            mainGrid[x][y].kaboom = false;
+            //mainGrid[x][y].kaboom = false;
             mainGrid[x][y].delayCountDown = mainGrid[x][y].delayCountDownOrig;
             mainGrid[x][y].lifeCountDown = mainGrid[x][y].lifeCountDownOrig;
             mainGrid[x][y].respawnCountDown = mainGrid[x][y].respawnCountDownOrig;
@@ -113,7 +112,7 @@ void ofApp::pixelOddsSetup() {
     }
 
     choose = int(ofRandom(maxChoices));
-    cout << "choose: " << choose;
+    cout << "choose: " << choose << endl;
     
     switch (choose) {
     case 0:

@@ -37,7 +37,7 @@ GridGuy::GridGuy(float x, float y, float w, float h, string s, float cc, int dc,
         }
     }
 
-    strokeLines = true;
+    //strokeLines = true;
 }
 
 void GridGuy::run() {
@@ -116,7 +116,7 @@ void GridGuy::draw() {
         fillColor = highlight(fillColor, clickedColor);
     }
 
-    drawPoint();
+    drawRect();
 }
 
 void GridGuy::drawPoint() {
