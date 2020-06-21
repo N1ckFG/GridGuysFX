@@ -1,5 +1,5 @@
 //---     MAIN CONTROLS     ---
-boolean firstRun = false;
+//boolean firstRun = false;
 
 //if you want to avoid chain reactions, try 0, 20, 100, 0.2
 int delayCounter = 0;    // delays start of spread
@@ -12,12 +12,12 @@ int maxChoices = 7;
 int numFrames = 50;
 int renderCounterMax = 1000;
 //----
-int lowQualityReduceBy = 6; //5;
-int sW = 140 * lowQualityReduceBy;
-int sH = 42 * lowQualityReduceBy;
-int fps = 60; //24;
-int currentFrame = 0;
-int renderCounter = 0;
+int pixelSize = 4;
+int sW = 640;
+int sH = 480;
+int fps = 60;
+//int currentFrame = 0;
+//int renderCounter = 0;
 int numColumns, numRows;
 float guyWidth, guyHeight, startX, startY;
 GridGuy[][] mainGrid;
@@ -25,8 +25,8 @@ String setRules = "";
 float odds_X_Yplus1, odds_Xminus1_Y, odds_X_Yminus1, odds_Xplus1_Y, odds_Xplus1_Yplus1, odds_Xminus1_YminuX1, odds_Xplus1_Yminus1, odds_Xminus1_Yplus1;
 
 void initGlobals() {
-    numColumns = sW / lowQualityReduceBy;
-    numRows = sH / lowQualityReduceBy;
+    numColumns = sW / pixelSize;
+    numRows = sH / pixelSize;
 
     guyWidth = sW / numColumns;
     guyHeight = sH / numRows;
@@ -36,10 +36,6 @@ void initGlobals() {
 
     // make mainGrid a 2D array
     mainGrid = new GridGuy[numColumns][numRows];
-}
-
-void keyPressed() {
-    resetAll();
 }
 
 void rulesHandler(int x, int y) {
@@ -118,7 +114,7 @@ void guysInit(int x, int y) {
 void resetAll() {
     startX = 0;
     startY = 0;
-    currentFrame = 0;
+    //currentFrame = 0;
     for (int y = 0; y < numRows; y++) {
         for (int x = 0; x < numColumns; x++) {
             mainGrid[x][y].hovered = false;
@@ -130,18 +126,20 @@ void resetAll() {
             mainGrid[x][y].fillColor = mainGrid[x][y].fillColorOrig;
         }
     }
+    
+    pixelOddsSetup();
 }
 
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
-int buttonSize = 80;
-float centerPointX = sW / 2;
-float centerPointY = sH / 2;
-boolean doubleClickedGlobal = false;
+//int buttonSize = 80;
+//float centerPointX = sW / 2;
+//float centerPointY = sH / 2;
+//boolean doubleClickedGlobal = false;
 
 float[] randomValues = new float[8];
 
-void fillBoxSetup() {
+void pixelOddsSetup() {
     // temp
     for (int i = 0; i < randomValues.length; i++) {
       randomValues[i] = random(1);
@@ -235,7 +233,7 @@ void fillBoxSetup() {
 void setup() {
     size(50, 50, P2D);
     surface.setSize(sW, sH);
-    fillBoxSetup();
+    pixelOddsSetup();
     initGlobals();
     
     for (int y = 0; y < numRows; y++) {
@@ -249,9 +247,9 @@ void setup() {
 
 void draw() {
     background(0);
-    if (firstRun) {
+    //if (firstRun) {
         //
-    } else {
+    //} else {
         for (int y = 0; y < numRows; y++) {
             for (int x = 0; x < numColumns; x++) {
                 int loc = x + (y * numColumns);
@@ -260,7 +258,9 @@ void draw() {
                 mainGrid[x][y].run();
             }
         }
-    }
+    //}
+    
+    surface.setTitle("" + frameRate);
 }
 
 //--    END

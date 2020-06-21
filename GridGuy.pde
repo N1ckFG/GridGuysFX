@@ -123,13 +123,21 @@ class GridGuy {
             fillColor = highlight(fillColor, clickedColor);
         }
 
-        drawRect();
+        //drawEllipse();
+        //drawRect();
+        drawPoint();
     }
 
     void drawPoint() {
         stroke(fillColor);
-        strokeWeight(5);
+        strokeWeight(guyWidth);
         point(posX, posY);
+    }
+
+    void drawEllipse() {
+        fill(fillColor);
+        ellipseMode(CENTER);
+        ellipse(posX, posY, guyWidth, guyHeight);
     }
 
     void drawRect() {
