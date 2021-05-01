@@ -1,22 +1,20 @@
 //import processing.opengl.*;
-//turn renderHighQuality on for pixel-level processing.  Cool but not realtime.
-boolean renderHighQuality = false;
+//turn renderQuality on for pixel-level processing.  Cool but not realtime.
+boolean renderQuality = false;
 
 //---   MAIN CONTROLS   ---
-boolean firstRun = true;
 //if you want to avoid chain reactions, try 0, 20, 100, 0.2
 int delayCounter = 0;  // delays start of spread
 int lifeCounter = 20;  // how long spread lasts
 int respawnCounter = 100; // how long until retrigger
-float globalChaos = 0.3;  // 0 = min, 1 = max
+float globalChaos = 0.2;  // 0 = min, 1 = max
 //-------------------------
 int numFrames = 50;
 int renderCounterMax = 1000;
 //----
-int sW=960;
-int sH=540;
+int width=960;
+int height=540;
 int fps=24;
-int lowQualityReduceBy = 5;
 int currentFrame = 0;
 int renderCounter=0;
 PImage[] mapImg = new PImage[numFrames];
@@ -25,16 +23,15 @@ int numColumns, numRows;
 float guyWidth, guyHeight, startX, startY;
 GridGuy[][] bob;
 String setRules="";
-float odds_X_Yplus1, odds_Xminus1_Y, odds_X_Yminus1, odds_Xplus1_Y, odds_Xplus1_Yplus1, odds_Xminus1_YminuX1, odds_Xplus1_Yminus1, odds_Xminus1_Yplus1;
 
 void initGlobals() {
-  if(renderHighQuality) {
-    numColumns = sW;
-    numRows = sH;
+  if(renderQuality) {
+    numColumns = width;
+    numRows = height;
   } 
   else {
-    numColumns = sW/lowQualityReduceBy;
-    numRows = sH/lowQualityReduceBy;
+    numColumns = width/5;
+    numRows = height/5;
   }
   guyWidth = width/numColumns;
   guyHeight = height/numRows;
@@ -44,15 +41,14 @@ void initGlobals() {
 }
 
 void setup() {
-  fillBoxSetup();
   initGlobals();
-  if(renderHighQuality) {
-    size(sW,sH,P2D); // try an alternate renderer
+  if(renderQuality) {
+    size(width,height,P2D); // try an alternate renderer
   } 
   else {
-    size(sW,sH,P2D);
+    size(width,height,P2D);
   }
-  //noCursor();
+  noCursor();
   frameRate(fps);
   for(int y = 0; y<numRows; y++) {
     for(int x=0; x<numColumns; x++) {
@@ -68,9 +64,6 @@ void setup() {
 }
 
 void draw() {
-  if(firstRun){
-    fillBoxDraw();
-  }else{
   image(mapImg[currentFrame],0,0,numColumns,numRows);
   scaleImg[currentFrame] = get(0,0,numColumns,numRows);
   //image(scaleImg,0,0,width,height);
@@ -87,7 +80,7 @@ void draw() {
   if(currentFrame<numFrames-1){
   currentFrame++;
   }
-  if(renderHighQuality){
+  if(renderQuality){
   if(renderCounter<renderCounterMax){
     saveFrame("render/render####.png");
     println("rendered frame: " + (renderCounter+1) + " / " + renderCounterMax);
@@ -96,7 +89,7 @@ void draw() {
   exit();
   }
   }
-  }
+  
 }
 
 void keyPressed() {
@@ -123,14 +116,14 @@ void rulesHandler(int x, int y) {
   else { // everything else
     if(bob[x][y].clicked) {
       //these are direction probabilities
-      bob[x][y+1].kaboom = diceHandler(1, odds_X_Yplus1);
-      bob[x-1][y].kaboom = diceHandler(1, odds_Xminus1_Y);
-      bob[x][y-1].kaboom = diceHandler(1, odds_X_Yminus1);
-      bob[x+1][y].kaboom = diceHandler(1, odds_Xplus1_Y);
-      bob[x+1][y+1].kaboom = diceHandler(1, odds_Xplus1_Yplus1);
-      bob[x-1][y-1].kaboom = diceHandler(1, odds_Xminus1_YminuX1);
-      bob[x+1][y-1].kaboom = diceHandler(1, odds_Xplus1_Yminus1);
-      bob[x-1][y+1].kaboom = diceHandler(1, odds_Xminus1_Yplus1);
+      bob[x][y+1].kaboom = diceHandler(1, 1);
+      bob[x-1][y].kaboom = diceHandler(1, 0.09);
+      bob[x][y-1].kaboom = diceHandler(1, 0.2);
+      bob[x+1][y].kaboom = diceHandler(1, 0.1);
+      bob[x+1][y+1].kaboom = diceHandler(1, 0.5);
+      bob[x-1][y-1].kaboom = diceHandler(1, 0.2);
+      bob[x+1][y-1].kaboom = diceHandler(1, 0.1);
+      bob[x-1][y+1].kaboom = diceHandler(1, 0.5);
     }
   }
 }
