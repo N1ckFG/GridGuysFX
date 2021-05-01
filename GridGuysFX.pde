@@ -9,8 +9,8 @@ int lifeCounter = 20;  // how long spread lasts
 int respawnCounter = 100; // how long until retrigger
 float globalChaos = 0.2;  // 0 = min, 1 = max
 //-------------------------
-int numFrames = 50;
-int renderCounterMax = 1000;
+int numFrames = 9;
+int renderCounterMax = 48;
 //----
 int width=960;
 int height=540;

@@ -1,2 +1,3 @@
 .DS_Store
-render/*
+data/*.png
+render/*.png
