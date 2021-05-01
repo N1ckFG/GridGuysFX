@@ -1,6 +1,6 @@
 //import processing.opengl.*;
 //turn renderQuality on for pixel-level processing.  Cool but not realtime.
-boolean renderQuality = false;
+boolean renderQuality = true;
 
 //---   MAIN CONTROLS   ---
 //if you want to avoid chain reactions, try 0, 20, 100, 0.2
@@ -41,13 +41,11 @@ void initGlobals() {
 }
 
 void setup() {
+  size(50, 50, P2D);
+
   initGlobals();
-  if(renderQuality) {
-    size(width,height,P2D); // try an alternate renderer
-  } 
-  else {
-    size(width,height,P2D);
-  }
+  surface.setSize(width, height);
+
   noCursor();
   frameRate(fps);
   for(int y = 0; y<numRows; y++) {
@@ -197,4 +195,3 @@ void resetAll() {
 
 
 //--  END
-
